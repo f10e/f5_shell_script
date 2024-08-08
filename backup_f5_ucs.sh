@@ -97,7 +97,7 @@ delete_old_backups() {
     done
 }
 
-# Function to rotate local UCS backups if there are more than 5 for a single F5 appliance
+# Function to rotate local UCS backups if there are more than $MAX_BACKUPS for a single F5 appliance
 rotate_local_backups() {
     local F5_HOST=$1
     local BACKUPS=($(ls -t "$DOWNLOAD_DIR"/backup_*_"$F5_HOST".ucs))
