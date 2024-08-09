@@ -1,6 +1,6 @@
 #!/bin/bash
 # please make sure that 'curl' and 'jq' was installed on the system
-# 20240808_v0.2_EW
+# 20240809_v0.3_EW
 
 # Variables
 F5_USER="your_f5_username"
@@ -40,7 +40,7 @@ save_running_config() {
     save_config_response=$(curl -sku "$F5_USER:$F5_PASS" -m 600 -H "Content-Type: application/json" -X POST "https://$F5_HOST/mgmt/tm/sys/config" -d '{"command":"save"}')
 
     # Check if the config save was successful
-    if [[ $(echo $save_config_response | jq -r .code) != "200" ]]; then
+    if [[ $(echo $save_config_response | jq -r .code) = "400" ]]; then
         log_message "Failed to save running configuration on $F5_HOST: $(echo $save_config_response | jq -r .message)"
         return 1
     fi
